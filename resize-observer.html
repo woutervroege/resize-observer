@@ -36,7 +36,8 @@
            * @type {ResizeObserverEntry|undefined}
            */
           lastEntry: {
-            type: Array,
+            type: Object,
+            readOnly: true,
             notify: true
           },
 
@@ -44,14 +45,15 @@
             type: Object,
             value: function() {
               return new ResizeObserver((entries, observer) => {
-                this.lastEntry = entries[0];
+                this._setLastEntry(entries[0]);
                 this.dispatchEvent(new CustomEvent('resize', {
                   detail: {entry: entries[0]},
                   bubbles: true,
                   composed: true
                 }));
               });
-            }
+            },
+            readOnly: true
           }
 
         };
