@@ -94,6 +94,24 @@ Example:
       }
 
       /**
+       * Fired when the ResizeObserver starts observing
+       * @event observe
+       * @param {Object} detail.element current element
+       */
+
+      /**
+       * Fired when the ResizeObserver stops observing
+       * @event disconnect
+       * @param {Object} detail.element current element
+       */
+
+      /**
+       * Fired when the ResizeObserver fires
+       * @event resize
+       * @param {Object} detail.entry observer entry
+       */
+
+      /**
        * Start observing the current `element`
        *
        * @return void
@@ -134,23 +152,6 @@ Example:
         }));
       }
 
-      /**
-       * Fired when the ResizeObserver starts observing
-       *
-       * @event observe
-       */
-
-      /**
-       * Fired when the ResizeObserver stops observing
-       *
-       * @event disconnect
-       */
-
-      /**
-       * Fired when the ResizeObserver fires
-       *
-       * @event resize
-       */
     }
 
     window.customElements.define(ResizeObserverElement.is, ResizeObserverElement);
