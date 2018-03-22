@@ -17,6 +17,11 @@
       static get properties() {
         return {
 
+          /**
+           * The element to observe.
+           *
+           * @type {Object|undefined}
+           */
           element: {
             type: Object,
             value: function() {
@@ -25,6 +30,11 @@
             observer: '_elementChanged'
           },
 
+          /**
+           * The most recent entry returned by the ResizeObserver
+           *
+           * @type {ResizeObserverEntry|undefined}
+           */
           lastEntry: {
             type: Array,
             notify: true
@@ -47,10 +57,20 @@
         };
       }
 
+      /**
+       * Start observing the current `element`
+       *
+       * @return void
+       */
       observe() {
         this._observer.observe(this.element);
       }
 
+      /**
+       * Stop observing the current `element`
+       *
+       * @return void
+       */
       disconnect() {
         this._observer.disconnect();
       }
@@ -60,6 +80,23 @@
         if(newElem) this.observe();
       }
 
+      /**
+       * Fired when the ResizeObserver starts observing
+       *
+       * @event observe
+       */
+
+      /**
+       * Fired when the ResizeObserver stops observing
+       *
+       * @event disconnect
+       */
+
+      /**
+       * Fired when the ResizeObserver fires
+       *
+       * @event resize
+       */
     }
 
     window.customElements.define(ResizeObserverElement.is, ResizeObserverElement);
