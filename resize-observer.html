@@ -1,6 +1,22 @@
 <link rel="import" href="../polymer/polymer-element.html">
 <script src="../resize-observer-polyfill/dist/ResizeObserver.js"></script>
 
+<!--
+`resize-observer` is a Declarative Wrapper for Resize Observer (Custom Element)
+
+Example:
+
+    <resize-observer
+      element="[[HTMLElement]]"
+      on-observe="_handleObserve"
+      on-resize="_handleResize"
+      on-disconnect="_handleDisconnect"
+      active="{{observerEnabled}}"
+    ></resize-observer>
+
+@demo demo/index.html
+-->
+
 <dom-module id="resize-observer">
 
   <script>
