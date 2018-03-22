@@ -41,6 +41,17 @@
             notify: true
           },
 
+          /**
+           * If true, the ResizeObserver is enabled
+           *
+           * @type {Boolean}
+           */
+          active: {
+            type: Boolean,
+            value: false,
+            notify: true
+          },
+
           _observer: {
             type: Object,
             value: function() {
@@ -59,12 +70,18 @@
         };
       }
 
+      static get observers() {
+        return [
+          '_toggle(element, active)'
+        ]
+      }
+
       /**
        * Start observing the current `element`
        *
        * @return void
        */
-      observe() {
+      _observe() {
         this._observer.observe(this.element);
         this.dispatchEvent(new CustomEvent('observe', {
           detail: {element: this.element},
@@ -78,18 +95,26 @@
        *
        * @return void
        */
-      disconnect() {
+      _disconnect() {
         this._observer.disconnect();
+      }
+
+      _toggle(element, active) {
+        if(active) {
+          this._observe();
+        } else {
+          this._disconnect();
+        }
+      }
+
+      _elementChanged(newElem, oldElem) {
+        if(!oldElem) return;
+        this.disconnect();
         this.dispatchEvent(new CustomEvent('disconnect', {
           detail: {element: this.element},
           bubbles: true,
           composed: true
         }));
-      }
-
-      _elementChanged(newElem, oldElem) {
-        if(oldElem) this.disconnect();
-        if(newElem) this.observe();
       }
 
       /**
