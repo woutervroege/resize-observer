@@ -3,6 +3,10 @@
   "main": "resize-observer.html",
   "author": "Wouter Vroege <wouter@woutervroege.nl>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/woutervroege/resize-observer"
+  },
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0",
     "resize-observer-polyfill": "^1.5.0"
