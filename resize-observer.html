@@ -64,6 +64,11 @@
        */
       observe() {
         this._observer.observe(this.element);
+        this.dispatchEvent(new CustomEvent('observe', {
+          detail: {element: this.element},
+          bubbles: true,
+          composed: true
+        }));
       }
 
       /**
@@ -73,6 +78,11 @@
        */
       disconnect() {
         this._observer.disconnect();
+        this.dispatchEvent(new CustomEvent('disconnect', {
+          detail: {element: this.element},
+          bubbles: true,
+          composed: true
+        }));
       }
 
       _elementChanged(newElem, oldElem) {

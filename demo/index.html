@@ -40,6 +40,12 @@
             <script>
               var observer = document.querySelector('resize-observer');
               observer.element = cinemascope;
+              observer.addEventListener('observe', (evt) => {
+                console.info('observing...', evt.detail.element)
+              })
+              observer.addEventListener('disconnect', (evt) => {
+                console.info('stopped observing')
+              })
               observer.addEventListener('resize', (evt) => {
                 var element = evt.detail.entry;
                 var elementRect = element.contentRect;
