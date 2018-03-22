@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>resize-observer demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../resize-observer.html">
+
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+        #cinemascope {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: #212121;
+          color: white;
+          font-size: 28px;
+          height: 300px;
+        }
+      </style>
+    </custom-style>
+  </head>
+  <body>
+    <div class="vertical-section-container">
+      <h3>Fixed aspect ratio</h3>
+      <demo-snippet>
+        <template>
+          <dom-bind>
+          <template>
+
+            <div id="cinemascope"></div>
+            <resize-observer></resize-observer>
+
+            <script>
+              var observer = document.querySelector('resize-observer');
+              observer.element = cinemascope;
+              observer.addEventListener('resize', (evt) => {
+                var element = evt.detail.entry;
+                var elementRect = element.contentRect;
+                observer.element.style.height = Math.round(elementRect.width / 2.35) + 'px';
+                observer.element.innerText = `${elementRect.width} x ${elementRect.height}`;
+              })
+            </script>
+
+          </template>
+          </dom-bind>
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>

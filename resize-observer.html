@@ -1,0 +1,67 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<script src="../resize-observer-polyfill/dist/ResizeObserver.js"></script>
+
+<dom-module id="resize-observer">
+
+  <script>
+    /**
+     * `resize-observer`
+     * 
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class ResizeObserverElement extends Polymer.Element {
+      static get is() { return 'resize-observer'; }
+      static get properties() {
+        return {
+
+          element: {
+            type: Object,
+            value: function() {
+              return this.parentElement;
+            },
+            observer: '_elementChanged'
+          },
+
+          lastEntry: {
+            type: Array,
+            notify: true
+          },
+
+          _observer: {
+            type: Object,
+            value: function() {
+              return new ResizeObserver((entries, observer) => {
+                this.lastEntry = entries[0];
+                this.dispatchEvent(new CustomEvent('resize', {
+                  detail: {entry: entries[0]},
+                  bubbles: true,
+                  composed: true
+                }));
+              });
+            }
+          }
+
+        };
+      }
+
+      observe() {
+        this._observer.observe(this.element);
+      }
+
+      disconnect() {
+        this._observer.disconnect();
+      }
+
+      _elementChanged(newElem, oldElem) {
+        if(oldElem) this.disconnect();
+        if(newElem) this.observe();
+      }
+
+    }
+
+    window.customElements.define(ResizeObserverElement.is, ResizeObserverElement);
+  </script>
+</dom-module>
